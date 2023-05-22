@@ -23,11 +23,11 @@ lint: isort-check autoflake-check black-check pylint mypy  ## Check code by lint
 
 .PHONY: black
 black:
-	$(PYTHON_EXEC) -m black -t py310 $(FORMAT_DIRS)
+	$(PYTHON_EXEC) -m black -t py311 $(FORMAT_DIRS)
 
 .PHONY: black-check
 black-check:
-	$(PYTHON_EXEC) -m black -t py310 $(FORMAT_DIRS) --check
+	$(PYTHON_EXEC) -m black -t py311 $(FORMAT_DIRS) --check
 
 .PHONY: isort
 isort:
@@ -52,7 +52,7 @@ toml-sort:
 
 .PHONY: mypy
 mypy:
-	$(POETRY_EXEC) run mypy --show-error-codes $(LINTER_DIRS)
+	$(POETRY_EXEC) run mypy --show-error-codes --python-version=3.11 $(LINTER_DIRS)
 
 .PHONY: flake8
 flake8:

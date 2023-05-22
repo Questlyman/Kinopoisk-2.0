@@ -3,7 +3,7 @@ from typing import Awaitable, Callable
 from fastapi.requests import Request
 from limits import parse, storage, strategies
 
-from server.errors.base_errors import TooManyRequestsError
+from server.errors.common_errors import TooManyRequestsError
 
 
 # here might be a redis storage, but I suppose in-memory is enough in this certain case

@@ -14,7 +14,7 @@ from server.settings import database_settings
 
 
 @pytest.fixture(scope="session")
-def caplog(_caplog):  # noqa: F811
+def caplog(_caplog: pytest.LogCaptureFixture):  # noqa: F811
     class PropagateHandler(logging.Handler):
         def emit(self, record: logging.LogRecord) -> None:
             logging.getLogger(record.name).handle(record)
@@ -25,13 +25,20 @@ def caplog(_caplog):  # noqa: F811
 
 
 @pytest.fixture(scope="session")
+def worker_id() -> str:
+    return "bureau_1440_test_task"
+
+
+@pytest.fixture(scope="session")
 def temp_instance_id(worker_id) -> str:
     return f"test_{worker_id}"
 
 
 @pytest.fixture(scope="session")
 def temp_instance_sync_url(session_mocker, temp_instance_id) -> URL:
-    """Сгенерировать путь до временной тестовой БД на основе урлы"""
+    """
+    Generate the URL to temporary test DB
+    """
     instance_url = make_url(database_settings.full_url_sync)
     instance_url = instance_url.set(database=temp_instance_id)
     session_mocker.patch(
@@ -44,7 +51,9 @@ def temp_instance_sync_url(session_mocker, temp_instance_id) -> URL:
 
 @pytest.fixture(scope="session")
 def temp_instance_async_url(session_mocker, temp_instance_id) -> URL:
-    """Сгенерировать путь до временной тестовой БД на основе урлы"""
+    """
+    Generate the async URL to temporary test DB
+    """
     instance_url = make_url(database_settings.full_url_async)
     instance_url = instance_url.set(database=temp_instance_id)
     session_mocker.patch(

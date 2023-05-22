@@ -25,7 +25,7 @@ from server.adapters.database.base import Base
 
 target_metadata = Base.metadata
 
-# Для обнаружения изменений в моделях
+# For change detection in models
 from server.adapters.database import models  # noqa: E402, F401  # Unused imports
 
 

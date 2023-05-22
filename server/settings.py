@@ -41,7 +41,7 @@ class DatabaseSettings(CustomBaseSettings):
             password=self.password,
             database=self.db,
         )
-        return str(url)
+        return url.render_as_string(hide_password=False)
 
     @property
     def full_url_sync(self) -> str:
@@ -53,10 +53,18 @@ class DatabaseSettings(CustomBaseSettings):
             password=self.password,
             database=self.db,
         )
-        return str(url)
+        return url.render_as_string(hide_password=False)
 
     class Config(CustomBaseSettings.Config):
-        env_prefix = "postgres_"
+        env_prefix = "database_"
+
+
+class SecuritySettings(CustomBaseSettings):
+    pbkdf2hmac_iterations: int = 100_000
+    salt_length: int = 16
+
+    class Config(CustomBaseSettings.Config):
+        env_prefix = "security_"
 
 
 class LoggingSettings(CustomBaseSettings):
@@ -76,4 +84,5 @@ class LoggingSettings(CustomBaseSettings):
 
 
 database_settings = DatabaseSettings()
+security_settings = SecuritySettings()
 logging_settings = LoggingSettings()

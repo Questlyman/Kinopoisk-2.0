@@ -4,11 +4,10 @@ from datetime import datetime
 from typing import Any, TypeVar, cast
 from uuid import uuid4
 
-from sqlalchemy import Column, DateTime, Executable, MetaData, select
+from sqlalchemy import UUID, Column, DateTime, Executable, MetaData, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import as_declarative, declared_attr
 from sqlalchemy.sql.base import ExecutableOption
-from sqlalchemy_utils.types.uuid import UUIDType
 
 from server.utils.text import camel_to_snake
 
@@ -20,7 +19,7 @@ metadata = MetaData()
 
 @as_declarative(metadata=metadata)
 class Base:
-    id = Column(UUIDType(), primary_key=True, default=uuid4)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
     created_at = Column(DateTime(timezone=True), index=True, default=datetime.utcnow)
     updated_at = Column(
         DateTime(timezone=True),

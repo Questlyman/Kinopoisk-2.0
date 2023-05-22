@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.requests import Request
-from fastapi.responses import Response
+from fastapi.responses import JSONResponse, Response
 
 from server.errors.base import BaseHTTPError
 
@@ -11,7 +11,7 @@ def init_handlers(app: FastAPI) -> None:
     async def handle_base_http_error(
         request: Request, exc: BaseHTTPError  # pylint: disable=W0613
     ) -> Response:
-        return Response(
+        return JSONResponse(
             content=exc.model.dict(),
             status_code=exc.status_code,
             headers=exc.headers,

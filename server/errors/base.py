@@ -40,10 +40,17 @@ class BaseHTTPError(Exception):
         return self.Model()
 
     @classmethod
-    def generate_responses(cls) -> dict[int, dict[str, Any]]:
+    def generate_responses(
+        cls, *classes: type[BaseHTTPError]
+    ) -> dict[int, dict[str, Any]]:
+        if len(classes) == 0:
+            classes_to_include = cls._list_of_subclasses
+        else:
+            classes_to_include = list(set(classes) & set(cls._list_of_subclasses))
+
         responses = {}
 
-        for error in cls._list_of_subclasses:
+        for error in classes_to_include:
             responses[error.status_code] = {
                 "model": error.Model,
                 "description": error.detail,

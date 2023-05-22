@@ -6,12 +6,12 @@ requires = ["poetry-core"]
 authors = ["sakost <23290721+sakost@users.noreply.github.com>"]
 description = "The test task for job in \"bureau 1440\" company"
 name = "bureau-1440-test-task"
-packages = [{include = "server"}]
 readme = "README.md"
 version = "0.1.0"
 
 [tool.poetry.dependencies]
 asyncpg = "^0.27.0"
+cryptography = "^40.0.2"
 fastapi = "^0.95.2"
 gunicorn = "^20.1.0"
 limits = "^3.5.0"
