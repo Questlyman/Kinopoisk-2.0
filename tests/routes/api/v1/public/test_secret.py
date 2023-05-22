@@ -15,7 +15,7 @@ async def test_get_secrets(test_client, secret_in_db_with_raw_data_and_password)
 async def test_invalid_password_secrets(
     test_client, secret_in_db_with_raw_data_and_password
 ):
-    secret, data, password = secret_in_db_with_raw_data_and_password
+    secret, _, password = secret_in_db_with_raw_data_and_password
     response = test_client.get(
         f"/secrets/{secret.id}", params={"password": (password + "123").decode()}
     )
@@ -27,7 +27,7 @@ async def test_invalid_password_secrets(
 
 async def test_secret_not_found(test_client):
     response = test_client.get(
-        f"/secrets/13d12514-52d6-4e1a-977e-b3790e7cf0c9", params={"password": b"123"}
+        "/secrets/13d12514-52d6-4e1a-977e-b3790e7cf0c9", params={"password": b"123"}
     )
     assert response.status_code == 404
     assert response.json() == {

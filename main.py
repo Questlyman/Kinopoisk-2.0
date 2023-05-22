@@ -9,7 +9,7 @@ from server.routes import router
 
 app = FastAPI(
     dependencies=[Depends(create_limiter("600/minute"))],
-    responses=BaseHTTPError.generate_responses(TooManyRequestsError),
+    responses=BaseHTTPError.generate_responses(TooManyRequestsError),  # type: ignore[arg-type]
 )
 app.include_router(router)
 
