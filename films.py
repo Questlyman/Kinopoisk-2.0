@@ -3,11 +3,12 @@ from database import session
 import os
 
 
-# def add_film(name, time, description, genres, rating_imdb, rating_kino):
-def add_film(name, time, description, genres, rating_imdb):
+def add_film(name, time, year, age_limit, description, genres, rating_imdb):
     film = Film(
         name=name,
         time=time,
+        year=year,
+        age_limit=age_limit,
         description=description,
         genres=genres,
         rating_imdb=rating_imdb,
@@ -18,9 +19,7 @@ def add_film(name, time, description, genres, rating_imdb):
     session.commit()
 
 # ВОЗМОЖНО НЕ РАБОТАЕТ, Я ВРОДЕ ЧТО-ТО МЕНЯЛ, УЖЕ НЕ ПОМНЮ ЧТО СЛОМАЛ
-# def edit_film(name, new_name=None, new_time=None, new_description=None, new_genres=None, 
-#               new_rating_imdb=None, new_rating_kino=None, new_rating=None):
-def edit_film(name, new_name=None, new_time=None, new_description=None, new_genres=None, 
+def edit_film(name, new_name=None, new_time=None, new_year=None, new_age=None, new_description=None, new_genres=None, 
               new_rating_imdb=None, new_rating=None):
     film = session.query(Film).filter_by(name=name).first()
     if film:
@@ -34,8 +33,10 @@ def edit_film(name, new_name=None, new_time=None, new_description=None, new_genr
             film.genres = new_genres
         if new_rating_imdb is not None:
             film.rating_imdb = new_rating_imdb
-        # if new_rating_kino is not None:
-        #     film.rating_kino = new_rating_kino
+        if new_age is not None:
+            film.age_limit = new_age
+        if new_year is not None:
+            film.year = new_year
         if new_rating is not None:
             film.rating = new_rating
         session.commit()
