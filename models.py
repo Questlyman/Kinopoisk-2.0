@@ -21,6 +21,8 @@ class Film(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String, nullable=False)
     time = Column(Time(0), nullable=False)
+    year = Column(Integer, nullable=False)
+    age_limit = Column(String(4), nullable=True)
     description = Column(TEXT)
     genres = Column(ARRAY(String), nullable=False)
     rating_imdb = Column(DECIMAL(3, 1), nullable=False)
