@@ -12,7 +12,6 @@ def add_film(name, time, year, age_limit, description, genres, rating_imdb):
         description=description,
         genres=genres,
         rating_imdb=rating_imdb,
-        # rating_kino=rating_kino,
         rating=0.0
     )
     session.add(film)
